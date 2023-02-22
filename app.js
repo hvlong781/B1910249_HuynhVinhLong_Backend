@@ -27,8 +27,8 @@ app.use((err, req, res, next) => {
     // Middleware xử lý lỗi tập trung.
     // Trong các đoạn code xử lý ở các route, gọi next(error)
     // sẽ chuyển về middleware xử lý lỗi này
-    return res.status(error.statusCode || 500).json({
-        message: error.message || "Internal Server Error",
+    return res.status(err.statusCode || 500).json({
+        message: err.message || "Internal Server Error",
     });
 });
 
