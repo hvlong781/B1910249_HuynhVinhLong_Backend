@@ -104,21 +104,6 @@ exports.delete = async (req, res, next) => {
     }
 };
 
-// exports.deleteAll = (req, res) => {
-//     res.send({ message: "deleteAll handler" });
-// };
-// Delete all contacts of a user from the database
-exports.deleteAll = async (_req, res, next) => {
-    try {
-        const contactService = new ContactService(MongoDB.client);
-        const deletedCount = await contactService.deleteALl();
-        return res.send({
-            message: `${deletedCount} contacts were deleted successfully`,
-        });
-    } catch (error) {
-        return next(new ApiError(500, "An error occurred while removing all contacts"));
-    }
-};
 
 // exports.findAllFavorite = (req, res) => {
 //     res.send({ message: "findAllFavorite handler" });
@@ -127,10 +112,26 @@ exports.deleteAll = async (_req, res, next) => {
 exports.findAllFavorite = async (_req, res, next) => {
     try {
         const contactService = new ContactService(MongoDB.client);
-        const documents = await contactService.findAllFavorite();
+        const documents = await contactService.findFavorite();
         return res.send(documents);
     } catch (error) {
         return next(new ApiError(500, "An error occured while retrieving favorite contacts"));
     }
 };
 
+
+// exports.deleteAll = (req, res) => {
+//     res.send({ message: "deleteAll handler" });
+// };
+// Delete all contacts of a user from the database
+exports.deleteAll = async (_req, res, next) => {
+    try {
+        const contactService = new ContactService(MongoDB.client);
+        const deletedCount = await contactService.deleteAll();
+        return res.send({
+            message: `${deletedCount} contacts were deleted successfully`,
+        });
+    } catch (error) {
+        return next(new ApiError(500, "An error occurred while removing all contacts"));
+    }
+};

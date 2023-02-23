@@ -30,7 +30,7 @@ class ContactService {
     //     );
     //     return result.value;
     // }
-    extractConactData(payload) {
+    extractContactData(payload) {
         const contact = {
             name: payload.name,
             email: payload.email,
@@ -39,14 +39,14 @@ class ContactService {
             favorite: payload.favorite,
         };
         // Remove undefined fields
-        Objects.keys(contact).forEach(
+        Object.keys(contact).forEach(
             (key) => contact[key] === undefined && delete contact[key]
         );
         return contact;
     }
     
     async create(payload) {
-        const contact = this.extractConactData(payload);
+        const contact = this.extractContactData(payload);
         const result = await this.Contact.findOneAndUpdate(
             contact,
             { $set: { favorite: contact.favorite === true } },
@@ -92,7 +92,7 @@ class ContactService {
         return result.value;
     }
 
-    async findAllFavorite() {
+    async findFavorite() {
         return await this.find({ favorite: true });
     }
 
